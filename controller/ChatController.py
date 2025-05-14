@@ -20,7 +20,7 @@ def sendMessageOllama(request):
 def sendMessage(request):
     message = request.GET.get('message')
 
-    client = OpenAI(api_key="sk-b1e42f0761ab4610aed2d21d76bcc53f", base_url="https://api.deepseek.com")
+    client = OpenAI(api_key="", base_url="https://api.deepseek.com")
 
     response = client.chat.completions.create(
         model="deepseek-chat",
