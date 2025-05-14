@@ -153,43 +153,6 @@
             <div class="camera-box">
                 <div id="video"></div>
             </div>
-            
-            <div class="form-group">
-                <label>姓名</label>
-                <input 
-                    type="text" 
-                    v-model="name" 
-                    placeholder="请输入您的姓名" 
-                    :class="{ error: showErrors && !name }" 
-                    @blur="checkField('name')" 
-                />
-                <span class="error-message" v-if="showErrors && !name">姓名不能为空</span>
-            </div>
-            
-            <div class="form-group">
-                <label>年龄</label>
-                <input 
-                    type="number" 
-                    v-model="age" 
-                    placeholder="请输入您的年龄" 
-                    :class="{ error: showErrors && !age }" 
-                    @blur="checkField('age')" 
-                />
-                <span class="error-message" v-if="showErrors && !age">年龄不能为空</span>
-            </div>
-            
-            <div class="form-group">
-                <label>电话</label>
-                <input 
-                    type="tel" 
-                    v-model="phone" 
-                    placeholder="请输入您的联系电话" 
-                    :class="{ error: showErrors && !phone }" 
-                    @blur="checkField('phone')" 
-                />
-                <span class="error-message" v-if="showErrors && !phone">电话不能为空</span>
-            </div>
-            
             <button type="button" @click="collectFaceInfo">采集人脸信息</button>
         </div>
     </div>
@@ -201,38 +164,11 @@
     });
     new Vue({
         el: '#myApp',
-        data: {
-            name: '',
-            age: '',
-            phone: '',
-            showErrors: false,
-            fieldValidation: {
-                name: false,
-                age: false,
-                phone: false
-            }
-        },
         methods: {
-            checkField(field) {
-                this.fieldValidation[field] = true;
-                if (Object.values(this.fieldValidation).some(val => val)) {
-                    this.showErrors = true;
-                }
-            },
-            validateForm() {
-                this.showErrors = true;
-                return this.name && this.age && this.phone;
-            },
             collectFaceInfo() {
-                if (!this.validateForm()) {
-                    return;
-                }
-                
+
                 const code = faceUtile.getDecode();
                 const param = {
-                    name: this.name,
-                    age: this.age,
-                    phone: this.phone,
                     image: code
                 };
                 
@@ -245,7 +181,7 @@
                 // 发送ajax请求
                 $.ajax({
                     type: "POST",
-                    url: "/faceCollect/",
+                    url: "/faceDetect/",
                     data: JSON.stringify(param),
                     contentType: "application/json",
                     success: function (response) {
@@ -254,9 +190,10 @@
                     },
                     error: function (error) {
                         console.error("Error:", error);
-                        alert(response.msg || "人脸信息采集失败");
+                        alert("人脸信息采集失败");
                     },
                     complete: function() {
+                        // 恢复按钮状态
                         btn.textContent = originalText;
                         btn.disabled = false;
                     }

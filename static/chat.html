@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>对话</title>
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/vue.min.js"></script>
+    <script src="/static/js/showdown.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+</head>
+<body>
+    <div id="myApp">
+        <div
+            v-loading="loading"
+            element-loading-text="拼命加载中"
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="white"
+            style="width: 1000px; height: 500px; border: 1px solid red; overflow-y: scroll;"
+            v-html="returnMessage"
+        ></div>
+        <input type="text" placeholder="请输入您的消息" v-model="message">
+        <el-button type="primary" @click="sendMessage">发送</el-button>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#myApp',
+        data: {
+            message: '',
+            returnMessage: '',
+            loading: false,
+            cc: null // 格式化消息的对象
+        },
+        mounted() {
+            this.cc = new showdown.Converter({
+                simpleLine: true,
+            });
+        },
+        methods: {
+            sendMessage() {
+                const self = this;
+                self.loading = true;
+                $.ajax({
+                    url: '/sendMessage/',
+                    type: 'GET',
+                    data: {
+                        message: this.message
+                    },
+                    success: function(response) {
+                        if (response.code == 200) {
+                            console.log("Response:", response);
+                            self.loading = false;
+                            self.returnMessage = self.cc.makeHtml(response.msg);
+                        } else {
+                            console.log("Response:", response);
+                            self.loading = false;
+                            alert(response.msg);
+                        }
+                    },
+                })
+            }
+        }
+    });
+</script>
+</html>

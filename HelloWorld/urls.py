@@ -16,9 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from controller.FaceController import faceCollect
+from controller.FaceController import faceCollect, faceDetect
+from controller.ChatController import sendMessage, sendMessageOllama
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('faceCollect/', faceCollect, name='face-collect'),
+    path('faceDetect/', faceDetect, name='face-detect'),
+    path('sendMessage/', sendMessageOllama, name='send-message'),
 ]
