@@ -1,8 +1,8 @@
-# Chat-Web
+# Chat-Server
 
 ## 项目介绍
 
-Chat-Web 是一个基于 Django 框架的聊天和人脸识别项目。该项目包含多个 Django 应用程序和模块，如 `api` 和 `chatweb`，并使用了多个外部库，如 `opencv-python`、`face-recognition`、`requests` 和 `openai`。
+Chat-Server 是一个基于 Django 框架的聊天和人脸识别项目。该项目包含多个 Django 应用程序和模块，如 `api` 和 `chatweb`，并使用了多个外部库，如 `opencv-python`、`face-recognition`、`requests` 和 `openai`。
 
 ## 功能
 
