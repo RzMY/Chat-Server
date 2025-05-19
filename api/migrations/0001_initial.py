@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='Conversation',
             fields=[
                 ('id', models.CharField(max_length=50, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=200)),
+                ('title', models.CharField(max_length=100)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
             options={
@@ -28,8 +28,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.IntegerField(primary_key=True, serialize=False)),
                 ('user_name', models.CharField(max_length=100)),
-                ('age', models.IntegerField(null=True)),
-                ('phone', models.CharField(max_length=20, null=True)),
+                ('password', models.CharField(max_length=100, blank=True, null=True)),
+                ('age', models.IntegerField(default=0)),
+                ('phone', models.CharField(max_length=20, blank=True, null=True)),
+                ('avatar_path', models.CharField(max_length=255, blank=True, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
@@ -44,7 +46,7 @@ class Migration(migrations.Migration):
                 ('conversation', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='messages', to='api.conversation')),
             ],
             options={
-                'ordering': ['created_at'],
+                'ordering': ['id'],
             },
         ),
         migrations.AddField(

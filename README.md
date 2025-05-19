@@ -156,3 +156,59 @@ Chat-Server 是一个基于 Django 框架的聊天和人脸识别项目。该项
 - `conversations/message/save/`: 保存消息
 - `conversations/<str:conversation_id>/update-title/`: 更新会话标题
 - `conversations/<str:conversation_id>/delete/`: 删除会话
+
+## 项目目录结构
+
+```
+Chat-Server/
+├── api/
+│   ├── migrations/
+│   │   ├── __init__.py
+│   │   └── 0001_initial.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── urls.py
+│   └── views/
+│       ├── __init__.py
+│       ├── chat_views.py
+│       └── face_views.py
+├── chatweb/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── faceimage/
+├── static/
+├── util/
+│   ├── __init__.py
+│   ├── ImageUtil.py
+│   └── RandomUtil.py
+├── .gitignore
+├── cert.crt
+├── cert.key
+├── db.sqlite3
+├── manage.py
+├── requirements.txt
+└── start.py
+```
+
+### 主要目录和文件说明
+
+- `api/`: 包含与API相关的所有代码。
+  - `migrations/`: 数据库迁移文件。
+  - `models.py`: 定义数据库模型。
+  - `urls.py`: 定义API的URL路由。
+  - `views/`: 包含处理API请求的视图函数。
+- `chatweb/`: 包含Django项目的设置和配置文件。
+  - `settings.py`: 项目的主要设置文件。
+  - `urls.py`: 项目的URL路由配置。
+- `faceimage/`: 存储人脸图像的目录。
+- `static/`: 存储静态文件的目录。
+- `util/`: 包含一些实用工具函数。
+- `.gitignore`: Git忽略文件配置。
+- `cert.crt` 和 `cert.key`: SSL证书文件。
+- `db.sqlite3`: SQLite数据库文件。
+- `manage.py`: Django项目的管理脚本。
+- `requirements.txt`: 项目依赖文件。
+- `start.py`: 启动项目的脚本。
